@@ -130,7 +130,21 @@ $TeamName = Read-Host "What group will $FirstName $LastName be a part of? Please
     }
 
 # Enabling new user's mailbox.
-$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://exchange/powershell -Authentication Kerberos -Credential $UserCredential # Connecting to remote powershell session on exchange server
-Import-PSSession $Session
-New-Mailbox -name $FullName -UserPrincipalName "$UserName@email.com" -SamAccountName $SamAccountName -FirstName $FirstName -LastName $LastName # Enabling the account
-Remove-PSSession $Session # Closed. This wraps up the account creation script. 
+Write-Host "Does the user, $UserName, need an Exchange Mailbox enabled? "
+    $InternUser = Read-Host "[Y]es or [N]o"
+    switch ($MailResponse) {
+        Y {Write-Host "Enabling Mailbox for user, $UserName. " -ForegroundColor Green; $MailResponse = $true } 
+        N {Write-Host "Mailbox not required. Exiting. " -ForegroundColor Green; $MailResponse = $false }
+        Default {"Invalid response. Exiting script"; exit}
+    }
+
+if ($MailResponse -eq $true){
+    $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://adtestexch/powershell -Authentication Kerberos -Credential $Credential # Connecting to remote powershell session on exchange server
+    Import-PSSession $Session
+    New-Mailbox -name $FullName -UserPrincipalName "$UserName@domain.com" -SamAccountName $SamAccountName -FirstName $FirstName -LastName $LastName # Enabling the account
+    Remove-PSSession $Session # Closed. This wraps up the account creation script.   
+}
+
+else {
+
+}
