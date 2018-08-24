@@ -131,7 +131,7 @@ $TeamName = Read-Host "What group will $FirstName $LastName be a part of? Please
 
 # Enabling new user's mailbox.
 Write-Host "Does the user, $UserName, need an Exchange Mailbox enabled? "
-    $InternUser = Read-Host "[Y]es or [N]o"
+    $MailResponse = Read-Host "[Y]es or [N]o"
     switch ($MailResponse) {
         Y {Write-Host "Enabling Mailbox for user, $UserName. " -ForegroundColor Green; $MailResponse = $true } 
         N {Write-Host "Mailbox not required. Exiting. " -ForegroundColor Green; $MailResponse = $false }
