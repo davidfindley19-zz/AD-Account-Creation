@@ -23,7 +23,7 @@ Param(
 Write-Host "Manual Account and Mailbox Creation"
 
 # Setting the ActiveDirectory module as required. If this causes an error, the script will break. 
-#Requires -Module ActiveDirectory
+#Requires -Modules ActiveDirectory
 
 # Just grabbing current user credentials. This is assuming user executing script has privileges to modify domain users.
 $UserCredential = Read-Host "Enter a username: "
